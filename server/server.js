@@ -1,11 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const dotenv = require("dotenv").config();
 
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:8080"
 };
 
 app.use(cors(corsOptions));
@@ -40,7 +41,7 @@ app.get("/", (req, res) => {
 require("./routes/report.routes")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

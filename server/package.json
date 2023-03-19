@@ -5,18 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:server": "nodemon server.js --ignore '../client/'",
-    "start:client": "npm run serve --prefix '../client/'",
-    "dev": "concurrently \"npm run start:server\" \"npm run start:client\""
+    "start": "nodemon server.js",
+    "dev:docker": "nodemon -L ./server.js localhost 3080"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.1"
   },
   "devDependencies": {
