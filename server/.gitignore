@@ -1,12 +1,8 @@
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-*.idea
 .DS_Store
 
 # Logs
 logs
-*.log
 
 # Runtime data
 pids
@@ -35,7 +31,4 @@ node_modules
 # Debug log from npm
 npm-debug.log
 
-.DS_Store
-
-*.env
 mongo-data
