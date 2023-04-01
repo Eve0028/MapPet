@@ -13,13 +13,13 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 h1.logo {
   font-family: 'Jua', sans-serif;
 }
 
 h1.logo > b {
-  color: var(--main-color-found);
+  color: $main-color-found;
 }
 
 .logo-app .nav-link{

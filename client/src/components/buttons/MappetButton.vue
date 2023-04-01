@@ -6,18 +6,18 @@ const buttonText = 'view mappet'
 </script>
 
 <template>
-    <Button @click="$router.push('/mappet')" class="mappet-button" :button-text=buttonText />
+  <Button @click="$router.push('/mappet')" class="mappet-button" :button-text=buttonText />
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .mappet-button {
-  border: 2px solid var(--main-color-found);
+  border: 2px solid $main-color-found;
   background-color: #ffffff;
-  color: var(--main-color-found);
+  color: $main-color-found;
 }
 
 .mappet-button:hover {
-  background-color: var(--main-color-found);
+  background-color: $main-color-found;
   color: #ffffff;
 }
 </style>

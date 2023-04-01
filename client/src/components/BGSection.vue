@@ -8,7 +8,7 @@
   </section>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .background {
   background: #FFFFFF;
   box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, 0.25);

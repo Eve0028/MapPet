@@ -18,28 +18,36 @@ import Logo from './components/Logo.vue'
   </div>
 </template>
 
-<style scoped>
+<style lang="scss">
+
+#app-content {
+  padding: 1rem;
+  margin: 0 auto;
+  text-align: center;
+}
 
 #app-content > .content {
   display: flex;
   flex-direction: row;
 }
 
-#app-content > .content .nav-bar {
-  min-width: 14rem;
-}
-
-#app-content > .content .board {
-  width: 70vw;
-  max-width: 52rem;
+#app-content > .content {
+  .nav-bar {
+    min-width: 14rem;
+  }
+  .board{
+    width: 70vw;
+    max-width: 52rem;
+  }
 }
 
 @media screen and (max-width: 600px) {
   #app-content > .content {
     flex-wrap: wrap;
-  }
-  #app-content > .content .nav-bar {
-    margin: 0.8em auto;
+
+    .nav-bar{
+      margin: 0.8em auto;
+    }
   }
 }
 

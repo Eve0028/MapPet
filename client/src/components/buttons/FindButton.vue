@@ -10,9 +10,9 @@ const props = defineProps({
   <Button @click="$router.push('/report-found')" class="find-button" :button-text=props.buttonText />
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .find-button {
-  background-color: rgba(151, 175, 0, 0.9);
+  background-color: $primary-color;
   color: #ffffff;
 }
 </style>

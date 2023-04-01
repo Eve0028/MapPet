@@ -1,0 +1,31 @@
+// bg-colors
+$main-color-found: rgba(151, 175, 0, 1);
+$main-color-lost: rgba(255, 48, 48, 1);
+
+$primary-color: rgba(151, 175, 0, 1);
+$primary-hover-color: #37b93d;
+$primary-background-color: #fafbe4;
+
+// another elements colors
+$bad-input-color: #e92836;
+
+// fonts-family
+$logo-font: Jua, sans-serif;
+$header-font: Fira Sans, sans-serif;
+$content-font: Fira Sans, sans-serif;
+
+// fonts-colors
+$main-color-font: #211327;
+$font-input-color: #666;
+$font-input-hover-color: #428c42;
+
+// inputs
+
+// img
+
+// for media-query
+$breakpoints: (
+        small: 786px,
+        medium: 1100px,
+        large: 1200px
+);

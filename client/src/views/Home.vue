@@ -42,7 +42,7 @@ const reports = ref([
   </section>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .latest-reports {
   --auto-grid-min-size: 16rem;
   display: grid;
