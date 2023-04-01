@@ -6,7 +6,7 @@ const buttonText = 'view mappet'
 </script>
 
 <template>
-  <Button class="mappet-button" :button-text=buttonText />
+    <Button @click="$router.push('/mappet')" class="mappet-button" :button-text=buttonText />
 </template>
 
 <style scoped>
