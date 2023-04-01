@@ -2,6 +2,7 @@
 import Button from './Button.vue'
 
 const buttonText = 'view mappet'
+
 </script>
 
 <template>
@@ -10,8 +11,13 @@ const buttonText = 'view mappet'
 
 <style scoped>
 .mappet-button {
-  border: 2px solid rgba(151, 175, 0, 1);
+  border: 2px solid var(--main-color-found);
   background-color: #ffffff;
-  color: rgba(151, 175, 0, 1);
+  color: var(--main-color-found);
+}
+
+.mappet-button:hover {
+  background-color: var(--main-color-found);
+  color: #ffffff;
 }
 </style>
