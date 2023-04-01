@@ -97,26 +97,26 @@ const MenuItemsFind = {
   </nav>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 nav.navbar {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.menu-items li {
-  border-bottom: 1px solid #bbbbbb;
-  padding: 0.6em 0.6rem;
-}
-
 .menu-items {
   padding: 0 1em;
   font-weight: 500;
   width: 100%;
+
+  li {
+    border-bottom: 1px solid #bbbbbb;
+    padding: 0.6em 0.6rem;
+  }
 }
 
 .menu-items-lost li:hover {
-  color: var(--main-color-lost);
+  color: $main-color-lost;
 }
 
 .menu-header {
@@ -126,17 +126,17 @@ nav.navbar {
 
 .log-in-button {
   width: 100%;
-  border: 2px solid var(--main-color-found);
-  background-color: var(--main-color-found);
+  border: 2px solid $main-color-found;
+  background-color: $main-color-found;
   color: #ffffff;
 
   margin-bottom: 0.7em;
   line-height: 0.5em;
-}
 
-.log-in-button:hover {
-  background-color: #ffffff;
-  color: var(--main-color-found);
+  &:hover{
+    background-color: #ffffff;
+    color: $main-color-found;
+  }
 }
 
 .mappet-button-menu {
@@ -144,11 +144,11 @@ nav.navbar {
 }
 
 .header-first-letter-lost {
-  color: var(--main-color-lost)
+  color: $main-color-lost;
 }
 
 .header-first-letter-found {
-  color: var(--main-color-found)
+  color: $main-color-found;
 }
 
 </style>

@@ -10,9 +10,9 @@ const props = defineProps({
   <Button @click="$router.push('/report-lost')" class="lost-button" :button-text=props.buttonText />
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .lost-button {
-  background-color: rgba(255, 48, 48, 0.9);
+  background-color: $bad-input-color;
   color: #ffffff;
 }
 </style>

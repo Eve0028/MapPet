@@ -1,0 +1,11 @@
+@use '../utils/variables' as v;
+
+a {
+  font-weight: 500;
+  color: v.$main-color-font;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: v.$primary-color;
+}

@@ -8,5 +8,16 @@ export default defineConfig({
     host: true,
     port: 8080,
   },
-  plugins: [vue()]
+  plugins: [vue()],
+
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+              @import "./src/styles/main.scss";
+              @import "./src/styles/utils/_variables.scss";
+            `
+      }
+    }
+  },
 })

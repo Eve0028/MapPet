@@ -13,7 +13,7 @@
   <a href="signup" class="sign-up">Sign up</a>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 
 header {
   text-align: left;
