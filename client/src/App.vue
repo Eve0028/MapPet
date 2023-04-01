@@ -1,30 +1,46 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import NavBar from './components/navbar/NavBar.vue'
+import BGSection from './components/BGSection.vue'
+import Logo from './components/Logo.vue'
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="app-content">
+    <Logo/>
+    <section class="content">
+      <BGSection class="nav-bar">
+        <NavBar/>
+      </BGSection>
+      <BGSection class="board">
+        <router-view></router-view>
+      </BGSection>
+    </section>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+
+#app-content > .content {
+  display: flex;
+  flex-direction: row;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+#app-content > .content .nav-bar {
+  min-width: 14rem;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+#app-content > .content .board {
+  width: 70vw;
+  max-width: 52rem;
 }
+
+@media screen and (max-width: 600px) {
+  #app-content > .content {
+    flex-wrap: wrap;
+  }
+  #app-content > .content .nav-bar {
+    margin: 0.8em auto;
+  }
+}
+
 </style>
