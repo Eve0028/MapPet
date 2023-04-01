@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <Button class="lost-button" :button-text=props.buttonText />
+  <Button @click="$router.push('/report-lost')" class="lost-button" :button-text=props.buttonText />
 </template>
 
 <style scoped>
