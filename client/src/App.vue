@@ -1,7 +1,12 @@
 <script setup>
-import NavBar from './components/navbar/NavBar.vue'
+import { ref } from "vue";
+
+import NavBar from './components/NavBar.vue'
 import BGSection from './components/BGSection.vue'
 import Logo from './components/Logo.vue'
+
+const widerBoard = ref(false);
+
 </script>
 
 <template>
@@ -11,8 +16,10 @@ import Logo from './components/Logo.vue'
       <BGSection class="nav-bar">
         <NavBar/>
       </BGSection>
-      <BGSection class="board">
-        <router-view></router-view>
+      <BGSection class="board" :class="{'board-wider': widerBoard}">
+        <router-view v-slot="{ Component }">
+          <component :is="Component" @isWider="(n) => widerBoard = n" />
+        </router-view>
       </BGSection>
     </section>
   </div>
@@ -23,32 +30,39 @@ import Logo from './components/Logo.vue'
 #app-content {
   padding: 1rem;
   margin: 0 auto;
-  text-align: center;
 }
 
 #app-content > .content {
   display: flex;
   flex-direction: row;
-}
 
-#app-content > .content {
   .nav-bar {
-    min-width: 14rem;
+    min-width: 18rem;
   }
   .board{
-    width: 70vw;
-    max-width: 52rem;
+    text-align: center;
+    max-width: 60vw;
+  }
+  .board-wider{
+    width: 60vw;
   }
 }
 
-@media screen and (max-width: 600px) {
+@include respond-to(small) {
+
   #app-content > .content {
     flex-wrap: wrap;
 
-    .nav-bar{
+    .nav-bar, .board{
       margin: 0.8em auto;
+    }
+    .board{
+      text-align: center;
+      max-width: 95vw;
+    }
+    .board-wider{
+      width: 95vw;
     }
   }
 }
-
 </style>
