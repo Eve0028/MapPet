@@ -66,3 +66,6 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+
+# SCSS files
+*.css.map
