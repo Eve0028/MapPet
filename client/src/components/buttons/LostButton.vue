@@ -12,7 +12,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .lost-button {
-  background-color: $bad-input-color;
+  background-color: $main-color-lost;
   color: #ffffff;
 }
 </style>
