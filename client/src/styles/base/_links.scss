@@ -3,7 +3,8 @@
 a {
   font-weight: 500;
   color: v.$main-color-font;
-  text-decoration: inherit;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 a:hover {

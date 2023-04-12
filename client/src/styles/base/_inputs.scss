@@ -5,7 +5,9 @@ input[type='password'],
 input[type='email'],
 input[type='tel'],
 input[type='number'],
-input[type='date'] {
+input[type='date'],
+input[type='time'],
+textarea {
   background-color: #efefef;
   color: v.$font-input-color;
   border: 2px solid #ddd;
@@ -14,7 +16,7 @@ input[type='date'] {
   padding: 0.6em;
   box-sizing: border-box;
   outline: none;
-
+  min-width: 9em;
 
   &:focus {
     -webkit-box-shadow: 0 0 10px 2px rgba(204, 204, 204, 0.9);
