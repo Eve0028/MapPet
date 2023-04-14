@@ -1,5 +1,5 @@
 # Pull the Node image from Docker Hub
-FROM node:18-slim
+FROM node:19-slim
 
 # Setting Working Directory
 WORKDIR /usr/app
@@ -15,5 +15,4 @@ COPY . .
 
 EXPOSE 3080
 
-# Run the API on Nodemon
 CMD ["npm", "run", "dev:docker"]

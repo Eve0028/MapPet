@@ -1,8 +1,5 @@
 # Pull the Node image from Docker Hub
-FROM node:14-slim
-
-# bind your app to the gateway IP
-ENV HOST=0.0.0.0
+FROM node:19-slim
 
 # Setting Working Directory
 WORKDIR /usr/app
@@ -19,6 +16,6 @@ COPY . .
 EXPOSE 8080
 
 # Run the Vue app
-ENTRYPOINT ["npm", "run", "dev"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
 
-#CMD [ "http-server", "dist" ]
+#CMD ["nginx", "-g", "daemon off;"]
