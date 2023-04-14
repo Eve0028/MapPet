@@ -74,6 +74,12 @@ client/.node_repl_history
 # Yarn Integrity file
 client/.yarn-integrity
 
+# scss files
+client/.sass-cache/
+client/*.css.map
+client/*.sass.map
+client/*.scss.map
+
 
 
 ### Server
