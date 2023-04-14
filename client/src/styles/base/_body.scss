@@ -19,6 +19,7 @@
 
 body {
   background-color: v.$primary-background-color;
+  text-align: left;
 }
 
 #app {
@@ -27,3 +28,9 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+.inline{
+  display: flex;
+  flex-wrap: wrap;
+}
+

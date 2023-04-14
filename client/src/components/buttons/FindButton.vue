@@ -12,7 +12,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .find-button {
-  background-color: $primary-color;
+  background-color: $main-color-found;
   color: #ffffff;
 }
 </style>

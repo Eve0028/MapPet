@@ -51,12 +51,17 @@ const reportInfo = ref([
   text-transform: uppercase;
 }
 
+.report-collapsed{
+  cursor: pointer;
+}
+
 .pet-info-detail-row{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   border-bottom: 1px solid #bbbbbb;
-  padding: 0.4em 0;
+  line-height: 1.7em;
+  column-gap: 1em;
 }
 
 .pet-header{

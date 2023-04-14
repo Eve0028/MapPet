@@ -37,7 +37,11 @@ const routes = [
     path: "/mappet",
     component: () => import("../views/MapPet.vue")
   },
-  { path: '/report/:id', component: () => import("../views/ReportView.vue") },
+  {
+    path: '/:id',
+    component: () => import("../views/ReportView.vue"),
+    props: true
+  },
   { path: '/editor/:id', component: () => import("../views/ReportEdit.vue") },
   {
     name: "report-lost",

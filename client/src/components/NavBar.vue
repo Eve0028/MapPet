@@ -1,7 +1,7 @@
 <script setup>
 import { inject } from 'vue'
-import MappetButton from '../buttons/MappetButton.vue'
-import Button from "../buttons/Button.vue";
+import MappetButton from './buttons/MappetButton.vue'
+import Button from "./buttons/Button.vue";
 
 const isLogged = inject('logged')
 
@@ -115,7 +115,7 @@ nav.navbar {
   }
 }
 
-.menu-items-lost li:hover {
+.menu-items-lost a:hover {
   color: $main-color-lost;
 }
 
@@ -131,7 +131,7 @@ nav.navbar {
   color: #ffffff;
 
   margin-bottom: 0.7em;
-  line-height: 0.5em;
+  line-height: 2em;
 
   &:hover{
     background-color: #ffffff;
