@@ -1,39 +1,43 @@
 <script setup>
 import { ref, computed } from "vue";
+import { useReportsStore } from '../stores/reports'
 
 const props = defineProps({
-  imageUrl: String,
-  petType: String,
-  petName: String,
-  reportType: String,
-  lastSeen: String,
-  timeOfReport: Date,
-  timeOfLastSeen: Date,
-  details: String
+  id: Number
+})
+
+const reportsData = useReportsStore()
+
+const reportData = computed(() => {
+  return reportsData.reportsData.filter((n) => n.id === props.id).at(0)
 })
 
 const imgAlt = computed(() => {
-  return props.reportType + ' ' + props.petType + ' ' + props.petName
+  return reportData.value.reportType + ' ' + reportData.value.petType + ' ' + reportData.value.petName
 })
 
 const reportInfo = ref([
-  {key: "Last seen:", value: props.lastSeen},
-  {key: "Time of last seen:", value: props.timeOfLastSeen},
-  {key: "Time of report:", value: props.timeOfReport},
-  {key: "Details:", value: props.details}
+  {key: "Last seen:", value: reportData.value.lastSeen},
+  {key: "Time of last seen:", value: reportData.value.timeOfLastSeen},
+  {key: "Time of report:", value: reportData.value.timeOfReport}
 ])
+
+const classReportType = computed(() => ({
+  'found': reportData.value.reportType === 'found',
+  'lost': reportData.value.reportType === 'lost'
+}))
 
 </script>
 
 <template>
   <section class="report report-collapsed">
-    <img width="120px" height="60px" :src="props.imageUrl" :alt="imgAlt"/>
+    <img width="120px" height="60px" :src="reportData.imageUrl" :alt="imgAlt"/>
     <section class="pet-info">
       <div class="pet-header">
-        <h3 class="pet-name">{{ props.petType + ' - ' + props.petName }}</h3>
-        <h3 class="report-type" :class="{ 'lost-report-header' : props.reportType === 'lost',
-                                          'found-report-header' : props.reportType === 'found'}">
-          {{ props.reportType }}
+        <h3 class="pet-name">{{ reportData.petType + ' - ' + reportData.petName }}</h3>
+        <h3 class="report-type" :class="{ 'lost-report-header' : reportData.reportType === 'lost',
+                                          'found-report-header' : reportData.reportType === 'found'}">
+          {{ reportData.reportType }}
         </h3>
       </div>
       <div class="pet-info-details">

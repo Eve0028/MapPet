@@ -1,7 +1,6 @@
 <script setup>
 import { useReportsStore } from '../stores/reports'
-import { storeToRefs } from 'pinia'
-import { computed, nextTick, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 import { useRoute } from 'vue-router'
 
 import ReportButtons from '../components/ReportButtons.vue'

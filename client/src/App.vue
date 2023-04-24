@@ -1,11 +1,13 @@
 <script setup>
-import { ref } from "vue";
+import { ref, provide } from "vue";
 
 import NavBar from './components/NavBar.vue'
 import BGSection from './components/BGSection.vue'
 import Logo from './components/Logo.vue'
 
 const widerBoard = ref(false);
+
+provide('logged', true)
 
 </script>
 

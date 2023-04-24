@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import PassThrough from "../components/PassThrough.vue";
 
 const routes = [
   {
@@ -24,12 +25,26 @@ const routes = [
   },
   {
     name: "account-reports",
-    path: "/account/reports",
+    path: "/account-reports",
     component: () => import("../views/AccountReports.vue")
   },
   {
+    name: "reports",
+    path: "/reports",
+    component: PassThrough,
+    props: true,
+    children: [
+      {
+        path: ':id',
+        component: () => import("../views/ReportEdit.vue"),
+        props: true
+      },
+      { path: '', component: () => import("../views/AccountReports.vue") }
+    ]
+  },
+  {
     name: "account-settings",
-    path: "/account/settings",
+    path: "/account-settings",
     component: () => import("../views/Account.vue")
   },
   {
@@ -42,7 +57,6 @@ const routes = [
     component: () => import("../views/ReportView.vue"),
     props: true
   },
-  { path: '/editor/:id', component: () => import("../views/ReportEdit.vue") },
   {
     name: "report-lost",
     path: "/report-lost",
@@ -55,12 +69,12 @@ const routes = [
   },
   {
     name: "what-to-do-lost",
-    path: "/what-to-do/lost",
+    path: "/what-to-do-lost",
     component: () => import("../views/WhatToDoLost.vue")
   },
   {
     name: "what-to-do-found",
-    path: "/what-to-do/found",
+    path: "/what-to-do-found",
     component: () => import("../views/WhatToDoFound.vue")
   }
 ]

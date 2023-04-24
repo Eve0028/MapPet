@@ -1,45 +1,15 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import { defineStore } from 'pinia'
+import { useReportsStore } from '../stores/reports'
 
 import ReportButtons from '../components/ReportButtons.vue'
-import ReportCollapsed from '../components/report/ReportCollapsed.vue'
+import ReportCollapsed from '../components/ReportCollapsed.vue'
 
-const reports = ref([
-  {
-    id: 1,
-    imageUrl: "imageUrl",
-    petType: "petType",
-    petName: "petName",
-    reportType: "lost",
-    lastSeen: "lastSeen",
-    timeOfReport: "timeOfReport",
-    timeOfLastSeen: "timeOfLastSeen",
-    details: "details"
-  },
-  {
-    id: 2,
-    imageUrl: "imageUrl",
-    petType: "petType",
-    petName: "petName",
-    reportType: "found",
-    lastSeen: "lastSeen",
-    timeOfReport: "timeOfReport",
-    timeOfLastSeen: "timeOfLastSeen",
-    details: "details"
-  },
-  {
-    id: 3,
-    imageUrl: "imageUrl",
-    petType: "petType",
-    petName: "petName",
-    reportType: "found",
-    lastSeen: "lastSeen",
-    timeOfReport: "timeOfReport",
-    timeOfLastSeen: "timeOfLastSeen",
-    details: "details"
-  }
-])
+const reportsData = useReportsStore()
+
+const reportsId = computed(() => {
+  return reportsData.reportsData.map((r) => r.id)
+})
 
 const emit = defineEmits(['isWider'])
 
@@ -59,8 +29,8 @@ onUnmounted( () => {
   <h1 class="latest-reports-header">The latest reports</h1>
   <section class="latest-reports">
     <ReportCollapsed
-        @click="$router.push(`/${report.id}`)"
-        v-for="report in reports" v-bind="report"/>
+        @click="$router.push(`/${reportId}`)"
+        v-for="reportId in reportsId" :id="reportId"/>
   </section>
 </template>
 

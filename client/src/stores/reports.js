@@ -38,5 +38,9 @@ export const useReportsStore = defineStore('reports', () => {
     }
   ])
 
+  function updatePetName(id, name) {
+    reportsData[id].petName = name
+  }
+
   return { reportsData }
 })

@@ -9,7 +9,7 @@ const MenuItemsAccount = {
   item1: {
     id: 'account-item1',
     name: 'My reports',
-    uri: '/account/reports'
+    uri: '/account-reports'
   },
   item2: {
     id: 'account-item2',
@@ -32,7 +32,7 @@ const MenuItemsLost = {
   item3: {
     id: 'lost-item3',
     name: 'What else to do',
-    uri: '/what-to-do/lost'
+    uri: '/what-to-do-lost'
   }
 }
 
@@ -50,7 +50,7 @@ const MenuItemsFind = {
   item3: {
     id: 'find-item3',
     name: 'What else to do',
-    uri: '/what-to-do/found'
+    uri: '/what-to-do-found'
   }
 }
 </script>
@@ -59,6 +59,7 @@ const MenuItemsFind = {
   <nav class="navbar">
     <Button @click="$router.push('/login')" class="log-in-button" button-text="Log in" v-if="!isLogged"/>
     <MappetButton class="mappet-button-menu"/>
+
     <ul class="menu-items menu-items-account" v-if="isLogged">
       <router-link v-for="item of MenuItemsAccount" :key="item.id"
                    active-class="active"
@@ -102,6 +103,10 @@ nav.navbar {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.menu-items-account{
+  margin-top: 1em;
 }
 
 .menu-items {
