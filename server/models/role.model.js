@@ -11,6 +11,5 @@ module.exports = mongoose => {
     return object;
   });
 
-  const Role = mongoose.model("role", schema);
-  return Role;
+  return mongoose.model("role", schema);
 };

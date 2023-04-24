@@ -1,10 +1,20 @@
 module.exports = mongoose => {
   const schema = mongoose.Schema(
     {
-      //TODO
-      // Add all attributes
-      title: String,
-      description: String,
+      publisherName: String,
+      ownerName: String,
+      phoneNumber: String,
+      emailAddress: String,
+      imageUrl: String,
+      petType: String,
+      petName: String,
+      microchip: String,
+      registrationNumber: String,
+      reportType: String,
+      lastSeen: String,
+      timeOfReport: Date,
+      timeOfLastSeen: Date,
+      details: String,
       published: Boolean
     },
     {timestamps: true}
@@ -16,6 +26,5 @@ module.exports = mongoose => {
     return object;
   });
 
-  const Report = mongoose.model("report", schema);
-  return Report;
+  return mongoose.model("report", schema);
 };
