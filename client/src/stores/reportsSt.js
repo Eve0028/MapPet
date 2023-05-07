@@ -8,7 +8,7 @@ export const useReportsStore = defineStore('reports', {
     async fetchReports() {
       try {
         const res = await axios.get(
-          "https://127.0.0.1:3080/reports"
+          "https://127.0.0.1:3080/api/reports"
         );
         this.reports = res.data;
         console.log("reports", this.reports);
