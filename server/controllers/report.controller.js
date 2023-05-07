@@ -4,16 +4,32 @@ const Report = db.reports;
 // Create and Save a new Report
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
-    res.status(400).send({ message: "Content can not be empty!" });
+  if (!req.body.publisherName
+    || !req.body.emailAddress
+    || !req.body.petType
+    || !req.body.reportType
+    || !req.body.published) {
+    res.status(400).send({message: "Content can not be empty!"});
     return;
   }
 
   // Create a Report
   const report = new Report({
-    title: req.body.title,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false
+    publisherName: req.body.publisherName,
+    ownerName: req.body.ownerName,
+    phoneNumber: req.body.phoneNumber,
+    emailAddress: req.body.emailAddress,
+    imageUrl: req.body.imageUrl,
+    petType: req.body.petType,
+    petName: req.body.petName,
+    microchip: req.body.microchip,
+    registrationNumber: req.body.registrationNumber,
+    reportType: req.body.reportType,
+    lastSeen: req.body.lastSeen,
+    timeOfReport: new Date(),
+    timeOfLastSeen: req.body.timeOfLastSeen,
+    details: req.body.details,
+    published: req.body.published
   });
 
   // Save Report in the database
