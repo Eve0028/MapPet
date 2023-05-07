@@ -4,7 +4,7 @@ import ShareButton from "../components/buttons/ShareButton.vue";
 import ReportDataService from "../services/ReportDataService";
 import { reactive, ref } from "vue";
 
-const petData = reactive({
+const initialState = {
   id: "",
   publisherName: "",
   ownerName: "",
@@ -15,13 +15,19 @@ const petData = reactive({
   petName: "",
   microchip: "",
   registrationNumber: "",
-  reportType: "",
+  reportType: "lost",
   lastSeen: "",
   timeOfReport: "",
   timeOfLastSeen: "",
   details: "",
-  published: "",
-})
+  published: "true",
+}
+
+const petData = reactive({ ...initialState });
+
+function resetForm() {
+  Object.assign(petData, initialState);
+}
 
 const submitted = ref(false)
 
@@ -39,14 +45,14 @@ function saveReport() {
 
 function newReport() {
   submitted.value = false;
-  petData.value = {};
+  resetForm();
 }
 
 </script>
 
 <template>
   <h1 class="report-missing-header">Report a missing pet</h1>
-  <section class="missing-form">
+  <section class="missing-form" v-if="!submitted">
     <section class="your-details form-column">
       <h3 class="report-missing-your-details">Your details</h3>
       <form class="form-vertical">
@@ -104,12 +110,16 @@ function newReport() {
       </form>
     </section>
   </section>
+  <div v-else>
+    <h4>You submitted successfully!</h4>
+    <button class="missing-button add-report" @click="newReport">Report another pet</button>
+  </div>
 
-  <section class="form-lost-buttons">
-    <LostButton class="missing-button"/>
+  <section class="form-lost-buttons" v-if="!submitted">
+    <LostButton class="missing-button send-button" @click="saveReport"/>
     <ShareButton class="share-button"/>
   </section>
-  {{ petData.publisherName }}
+
 </template>
 
 <style lang="scss" scoped>
@@ -162,5 +172,11 @@ h3 {
     flex-grow: 1;
     width: 100%;
   }
+}
+
+.add-report{
+  color: white;
+  background-color: $main-color-lost;
+  margin-top: 1em;
 }
 </style>
