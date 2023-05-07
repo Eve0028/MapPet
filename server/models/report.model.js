@@ -1,21 +1,21 @@
 module.exports = mongoose => {
   const schema = mongoose.Schema(
     {
-      publisherName: String,
-      ownerName: String,
-      phoneNumber: String,
-      emailAddress: String,
-      imageUrl: String,
-      petType: String,
-      petName: String,
-      microchip: String,
-      registrationNumber: String,
-      reportType: String,
-      lastSeen: String,
-      timeOfReport: Date,
-      timeOfLastSeen: Date,
-      details: String,
-      published: Boolean
+      publisherName: {type: String, required: true},
+      ownerName: {type: String, required: false},
+      phoneNumber: {type: String, required: false},
+      emailAddress: {type: String, required: true},
+      imageUrl: {type: String, required: false},
+      petType: {type: String, required: true},
+      petName: {type: String, required: false},
+      microchip: {type: String, required: false},
+      registrationNumber: {type: String, required: false},
+      reportType: {type: String, required: true},
+      lastSeen: {type: String, required: false},
+      timeOfReport: {type: Date, required: true},
+      timeOfLastSeen: {type: Date, required: false},
+      details: {type: String, required: false},
+      published: {type: Boolean, required: true, default: true},
     },
     {timestamps: true}
   );
