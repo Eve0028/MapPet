@@ -48,7 +48,19 @@ exports.create = (req, res) => {
 
 // Retrieve all Reports from the database.
 exports.findAll = (req, res) => {
+  const petName = req.query.petName;
+  const condition = petName ? {title: {$regex: new RegExp(petName), $options: "i"}} : {};
 
+  Report.find(condition)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving reports."
+      });
+    });
 };
 
 // Find a single Report with an id
