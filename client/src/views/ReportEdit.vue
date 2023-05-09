@@ -1,20 +1,23 @@
 <script setup>
-import { useReportsStore } from '../stores/reports'
+import { useReportsStore } from '../stores/reportsSt'
 import { computed, nextTick, onMounted, ref, watch } from "vue";
 import { useRoute } from 'vue-router'
 
 import ReportButtons from '../components/ReportButtons.vue'
+import { storeToRefs } from "pinia";
 
 /// Get report data ///
 
-const reports = useReportsStore()
-const { updatePetName } = reports;
+const reportsDataStore = useReportsStore()
+const { getReportById } = storeToRefs(reportsDataStore)
+const { fetchReports } = reportsDataStore
 
 const route = useRoute()
+const reportData = computed(() => getReportById.value(route.params.id))
 
-const reportData = computed(() => {
-  return reports.reportsData.filter((n) => n.id == route.params.id).at(0)
-})
+// const reportData = computed(() => {
+//   return reports.reportsData.filter((n) => n.id == route.params.id).at(0)
+// })
 
 const imgAlt = computed(() => {
   return reportData.value.reportType + ' ' + reportData.value.petType + ' ' + reportData.value.petName
@@ -37,6 +40,9 @@ function petNameUpdate() {
   updatePetName(1, "nn")
 }
 
+onMounted(() => {
+  fetchReports()
+})
 
 </script>
 

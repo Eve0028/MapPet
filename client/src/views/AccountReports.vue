@@ -1,22 +1,27 @@
 <script setup>
 import ReportButtons from '../components/ReportButtons.vue'
 import ReportCollapsed from '../components/ReportCollapsed.vue'
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue"
 import { useRouter } from 'vue-router';
-import { useReportsStore } from "../stores/reports.js";
+import { useReportsStore } from '../stores/reportsSt'
+import { storeToRefs } from "pinia";
 
 const router = useRouter()
 
-const reportsData = useReportsStore()
+const reportsDataStore = useReportsStore()
+const { reports } = storeToRefs(reportsDataStore)
+const { fetchReports } = reportsDataStore
 
-const reportsId = computed(() => {
-  return reportsData.reportsData.map((r) => r.id)
+// Get user posts id's
+const reportsUserId = computed(() => {
+  return reports.value.map((r) => r.id)
 })
 
 const emit = defineEmits(['isWider'])
 
 onMounted(() => {
   emit('isWider', true)
+  fetchReports()
 })
 
 onUnmounted( () => {
@@ -32,7 +37,7 @@ onUnmounted( () => {
   <section class="my-reports">
     <ReportCollapsed
         @click="$router.push(`/reports/${reportId}`)"
-        v-for="reportId in reportsId" :id="reportId"/>
+        v-for="reportId in reportsUserId" :id="reportId"/>
   </section>
 </template>
 

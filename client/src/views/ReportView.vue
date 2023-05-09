@@ -1,16 +1,22 @@
 <script setup>
-import { useReportsStore } from '../stores/reports'
-import { computed, ref } from "vue";
+import { useReportsStore } from '../stores/reportsSt'
+import { computed, onMounted, ref } from "vue"
 import { useRoute } from 'vue-router'
+import { storeToRefs } from "pinia"
 
 import ReportButtons from '../components/ReportButtons.vue'
 
-const reportsData = useReportsStore()
-const route = useRoute()
 
-const reportData = computed(() => {
-  return reportsData.reportsData.filter((n) => n.id == route.params.id).at(0)
-})
+const reportsDataStore = useReportsStore()
+const { getReportById } = storeToRefs(reportsDataStore)
+const { fetchReports } = reportsDataStore
+
+const route = useRoute()
+const reportData = computed(() => getReportById.value(route.params.id))
+
+// const reportData = computed(() => {
+//   return reportsData.reportsData.filter((n) => n.id == route.params.id).at(0)
+// })
 
 const imgAlt = computed(() => {
   return reportData.value.reportType + ' ' + reportData.value.petType + ' ' + reportData.value.petName
@@ -26,6 +32,10 @@ const classReportType = computed(() => ({
   'found': reportData.value.reportType === 'found',
   'lost': reportData.value.reportType === 'lost'
 }))
+
+onMounted(() => {
+  fetchReports()
+})
 
 </script>
 
@@ -58,7 +68,7 @@ const classReportType = computed(() => ({
 
 <style lang="scss" scoped>
 
-.report-view-header{
+.report-view-header {
   padding-top: 2em;
   padding-bottom: 1em;
   display: flex;
@@ -66,34 +76,35 @@ const classReportType = computed(() => ({
   flex-wrap: wrap;
   align-items: baseline;
 
-  h1{
+  h1 {
     font-size: 1.7em;
   }
 
-  .report-type{
+  .report-type {
     font-size: 1.2em;
     font-weight: 700;
 
-    &.lost{
+    &.lost {
       color: $main-color-lost-pale;
     }
-    &.found{
+
+    &.found {
       color: $main-color-found-pale;
     }
   }
 }
 
-.pet-info{
+.pet-info {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   column-gap: 8em;
 
-  img{
+  img {
     margin-bottom: 2em;
   }
 
-  .pet-info-detail-row{
+  .pet-info-detail-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -105,22 +116,22 @@ const classReportType = computed(() => ({
 }
 
 @include respond-to(small) {
-  .pet-info{
+  .pet-info {
     justify-content: center;
   }
 
-  .report-view-header{
-    .report-type{
+  .report-view-header {
+    .report-type {
       margin: 0 auto;
     }
   }
 }
 
-.pet-details{
+.pet-details {
   padding-top: 2.2em;
   text-align: left;
 
-  h3{
+  h3 {
     padding-bottom: 0.7em;
   }
 }

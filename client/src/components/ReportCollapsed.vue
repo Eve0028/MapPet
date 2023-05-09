@@ -1,31 +1,40 @@
 <script setup>
-import { ref, computed } from "vue";
-import { useReportsStore } from '../stores/reports'
+import { ref, computed, onMounted } from "vue";
+// import { useReportsStore } from '../stores/reports'
+import { useReportsStore } from '../stores/reportsSt'
+import { storeToRefs } from "pinia"
 
 const props = defineProps({
-  id: Number
+  id: String
 })
 
-const reportsData = useReportsStore()
+const reportsDataStore = useReportsStore()
+const { getReportById } = storeToRefs(reportsDataStore)
+const { fetchReports } = reportsDataStore
 
-const reportData = computed(() => {
-  return reportsData.reportsData.filter((n) => n.id === props.id).at(0)
-})
+// const reportData = computed(() => reportsDataStore.getReportById(props.id))
+// const reportData = getReportById.value(props.id)
+const reportData = computed(() => getReportById.value(props.id))
 
 const imgAlt = computed(() => {
   return reportData.value.reportType + ' ' + reportData.value.petType + ' ' + reportData.value.petName
 })
 
-const reportInfo = ref([
-  {key: "Last seen:", value: reportData.value.lastSeen},
-  {key: "Time of last seen:", value: reportData.value.timeOfLastSeen},
-  {key: "Time of report:", value: reportData.value.timeOfReport}
-])
+const reportInfo = computed(() => {
+  return [
+    {key: "Last seen:", value: reportData.value.lastSeen},
+    {key: "Time of last seen:", value: reportData.value.timeOfLastSeen},
+    {key: "Time of report:", value: reportData.value.timeOfReport}]
+})
 
-const classReportType = computed(() => ({
-  'found': reportData.value.reportType === 'found',
-  'lost': reportData.value.reportType === 'lost'
-}))
+// const classReportType = computed(() => ({
+//   'found': reportData.value.reportType === 'found',
+//   'lost': reportData.value.reportType === 'lost'
+// }))
+
+onMounted(() => {
+  fetchReports()
+})
 
 </script>
 

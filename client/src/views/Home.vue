@@ -1,20 +1,26 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from "vue";
-import { useReportsStore } from '../stores/reports'
+import { computed, onMounted, onUnmounted } from "vue"
+// import { useReportsStore } from '../stores/reports'
+import { useReportsStore } from '../stores/reportsSt'
 
 import ReportButtons from '../components/ReportButtons.vue'
 import ReportCollapsed from '../components/ReportCollapsed.vue'
+import { storeToRefs } from "pinia";
 
-const reportsData = useReportsStore()
-
-const reportsId = computed(() => {
-  return reportsData.reportsData.map((r) => r.id)
-})
+const reportsDataStore = useReportsStore()
+const { reports } = storeToRefs(reportsDataStore)
+const { fetchReports } = reportsDataStore
 
 const emit = defineEmits(['isWider'])
 
+// Get posts id's
+const reportsId = computed(() => {
+  return reports.value.map((r) => r.id)
+})
+
 onMounted(() => {
   emit('isWider', true)
+  fetchReports()
 })
 
 onUnmounted( () => {
@@ -27,7 +33,21 @@ onUnmounted( () => {
   <ReportButtons/>
 
   <h1 class="latest-reports-header">The latest reports</h1>
+
+<!--  <div class="input-group mb-3">-->
+<!--    <input type="text" class="form-control" placeholder="Search by location"-->
+<!--           v-model="title"/>-->
+<!--    <div class="input-group-append">-->
+<!--      <button class="btn btn-outline-secondary" type="button"-->
+<!--              @click="searchTitle"-->
+<!--      >-->
+<!--        Search-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+
   <section class="latest-reports">
+
     <ReportCollapsed
         @click="$router.push(`/${reportId}`)"
         v-for="reportId in reportsId" :id="reportId"/>
