@@ -48,10 +48,16 @@ exports.create = (req, res) => {
 
 // Retrieve all Reports from the database.
 exports.findAll = (req, res) => {
-  const petName = req.query.petName;
-  const condition = petName ? {title: {$regex: new RegExp(petName), $options: "i"}} : {};
+  const { petName, lastSeen } = req.query;
+  const filter = {}
+  if (petName) {
+    filter.petName = petName
+  }
+  if (lastSeen) {
+    filter.lastSeen = lastSeen
+  }
 
-  Report.find(condition)
+  Report.find(filter)
     .then(data => {
       res.send(data);
     })
@@ -147,6 +153,27 @@ exports.deleteAll = (req, res) => {
 // Find all published Reports
 exports.findAllPublished = (req, res) => {
   Report.find({ published: true })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving reports."
+      });
+    });
+};
+
+// Find all Reports with pet name
+exports.findByPetName = (req, res) => {
+  const petNameT = req.query.petName;
+
+  let query = {};
+  let criteria = "petName";
+  query[criteria] = petNameT;
+  // console.log(query);
+
+  Report.find(query)
     .then(data => {
       res.send(data);
     })
