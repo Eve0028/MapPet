@@ -2,11 +2,11 @@ import http from "../http-common";
 
 class ReportDataService {
   getAll() {
-    return http.get("/reports");
+    return http.get("/");
   }
 
   get(id) {
-    return http.get(`/reports/${id}`);
+    return http.get(`/${id}`);
   }
 
   create(data) {
@@ -14,20 +14,24 @@ class ReportDataService {
   }
 
   update(id, data) {
-    return http.put(`/reports/${id}`, data);
+    return http.put(`/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/reports/${id}`);
+    return http.delete(`/${id}`);
   }
 
   deleteAll() {
-    return http.delete(`/reports`);
+    return http.delete(`/`);
   }
 
-  findByPetName(petName) {
-    return http.get(`/reports?pet-name=${petName}`);
+  findByFilter(petName="", location="") {
+    return http.get(`/?petName=${petName}&lastSeen=${location}`);
   }
+
+  // findByPetLocation(location) {
+  //   return http.get(`/?lastSeen=${location}`);
+  // }
 }
 
 export default new ReportDataService();
