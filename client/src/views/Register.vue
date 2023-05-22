@@ -8,6 +8,7 @@ import ReportButtons from '../components/ReportButtons.vue'
   <h1 class="signup-header">Sign up</h1>
   <main class="signup-container">
     <form class="signup form-vertical">
+      <input name="username" type="text" required placeholder="username">
       <input name="email" type="email" required placeholder="email address">
       <input name="password" type="password" required placeholder="password">
       <input name="repeat-password" type="password" required placeholder="repeat password">

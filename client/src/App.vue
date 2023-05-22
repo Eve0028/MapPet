@@ -4,10 +4,12 @@ import { ref, provide } from "vue";
 import NavBar from './components/NavBar.vue'
 import BGSection from './components/BGSection.vue'
 import Logo from './components/Logo.vue'
+// import { useReportsStore } from 'stores/reportsSt'
 
 const widerBoard = ref(false);
+// const reportsData = useReportsStore()
 
-provide('logged', true)
+provide('logged', false)
 
 </script>
 

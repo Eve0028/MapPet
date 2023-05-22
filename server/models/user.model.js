@@ -1,23 +1,18 @@
-module.exports = mongoose => {
-  const schema = mongoose.Schema(
-    {
-      username: String,
-      email: String,
-      password: String,
-      roles: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Role"
-        }
-      ]
-    },
-  );
+const mongoose = require("mongoose");
 
-  schema.method("toJSON", function() {
-    const { __v, _id, ...object } = this.toObject();
-    object.id = _id;
-    return object;
-  });
+const User = mongoose.model(
+  "User",
+  new mongoose.Schema({
+    username: String,
+    email: String,
+    password: String,
+    roles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Role"
+      }
+    ]
+  }, { collection: 'users' })
+);
 
-  return mongoose.model("role", schema);
-};
+module.exports = User;

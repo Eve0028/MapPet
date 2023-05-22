@@ -17,6 +17,7 @@ module.exports = mongoose => {
       details: {type: String, required: false},
       published: {type: Boolean, required: true, default: true},
     },
+    { collection: 'reports' },
     {timestamps: true}
   );
 
@@ -26,5 +27,5 @@ module.exports = mongoose => {
     return object;
   });
 
-  return mongoose.model("report", schema);
+  return mongoose.model("Report", schema);
 };

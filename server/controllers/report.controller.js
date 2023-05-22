@@ -1,5 +1,5 @@
 const db = require("../models");
-const Report = db.reports;
+const Report = db.report;
 
 // Create and Save a new Report
 exports.create = (req, res) => {
