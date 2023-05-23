@@ -1,10 +1,11 @@
 <script setup>
 import ReportButtons from '../components/ReportButtons.vue'
 import ReportCollapsed from '../components/ReportCollapsed.vue'
-import { computed, onMounted, onUnmounted, ref } from "vue"
+import { computed, onMounted, onUnmounted } from "vue"
 import { useRouter } from 'vue-router';
 import { useReportsStore } from '../stores/reportsSt'
 import { storeToRefs } from "pinia";
+import { useAuthStore } from "../stores/auth.js";
 
 const router = useRouter()
 
@@ -12,9 +13,12 @@ const reportsDataStore = useReportsStore()
 const { reports } = storeToRefs(reportsDataStore)
 const { fetchReports } = reportsDataStore
 
+const authStore = useAuthStore()
+const {user} = storeToRefs(authStore)
+
 // Get user posts id's
 const reportsUserId = computed(() => {
-  return reports.value.map((r) => r.id)
+  return reports.value.filter((r) => r.authorId === user.value.id).map((r) => r.id)
 })
 
 const emit = defineEmits(['isWider'])

@@ -1,9 +1,16 @@
 <script setup>
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 import MappetButton from './buttons/MappetButton.vue'
 import Button from "./buttons/Button.vue";
+import { useAuthStore } from "../stores/auth.js";
+import { storeToRefs } from "pinia";
+import { useRouter } from 'vue-router'
 
-const isLogged = inject('logged')
+const router = useRouter()
+
+const authStore = useAuthStore()
+const {user} = storeToRefs(authStore)
+const {logout} = authStore
 
 const MenuItemsAccount = {
   item1: {
@@ -53,14 +60,23 @@ const MenuItemsFind = {
     uri: '/what-to-do-found'
   }
 }
+
+function logOut() {
+  logout()
+  router.push('/login');
+}
+
 </script>
 
 <template>
   <nav class="navbar">
-    <Button @click="$router.push('/login')" class="log-in-button" button-text="Log in" v-if="!isLogged"/>
+    <Button @click="$router.push('/login')" class="log-in-button" button-text="Log in" v-if="!user"/>
+    <!--    <a class="nav-link" @click.prevent="logOut" v-if="user">-->
+    <!--      LogOut-->
+    <!--    </a>-->
     <MappetButton class="mappet-button-menu"/>
 
-    <ul class="menu-items menu-items-account" v-if="isLogged">
+    <ul class="menu-items menu-items-account" v-if="user">
       <router-link v-for="item of MenuItemsAccount" :key="item.id"
                    active-class="active"
                    exact
@@ -68,6 +84,11 @@ const MenuItemsFind = {
                    class="nav-link">
         <li>{{ item.name }}</li>
       </router-link>
+      <a href="#" class="nav-link">
+        <li @click.prevent="logOut" v-if="user">
+          LogOut
+        </li>
+      </a>
     </ul>
 
     <h2 class="menu-header">
@@ -105,7 +126,7 @@ nav.navbar {
   align-items: flex-start;
 }
 
-.menu-items-account{
+.menu-items-account {
   margin-top: 1em;
 }
 
@@ -138,7 +159,7 @@ nav.navbar {
   margin-bottom: 0.7em;
   line-height: 2em;
 
-  &:hover{
+  &:hover {
     background-color: #ffffff;
     color: $main-color-found;
   }

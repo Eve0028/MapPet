@@ -1,15 +1,11 @@
 <script setup>
-import { ref, provide } from "vue";
+import { ref } from "vue";
 
 import NavBar from './components/NavBar.vue'
 import BGSection from './components/BGSection.vue'
 import Logo from './components/Logo.vue'
-// import { useReportsStore } from 'stores/reportsSt'
 
 const widerBoard = ref(false);
-// const reportsData = useReportsStore()
-
-provide('logged', false)
 
 </script>
 

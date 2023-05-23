@@ -15,10 +15,6 @@ const { fetchReports } = reportsDataStore
 const route = useRoute()
 const reportData = computed(() => getReportById.value(route.params.id))
 
-// const reportData = computed(() => {
-//   return reports.reportsData.filter((n) => n.id == route.params.id).at(0)
-// })
-
 const imgAlt = computed(() => {
   return reportData.value.reportType + ' ' + reportData.value.petType + ' ' + reportData.value.petName
 })
