@@ -3,6 +3,11 @@ import ShareButton from "../components/buttons/ShareButton.vue";
 import FindButton from "../components/buttons/FindButton.vue";
 import { reactive, ref } from "vue";
 import ReportDataService from "../services/ReportDataService.js";
+import { useAuthStore } from "../stores/auth.js";
+import { storeToRefs } from "pinia";
+
+const authStore = useAuthStore()
+const {user} = storeToRefs(authStore)
 
 const initialState = {
   id: "",
@@ -15,12 +20,13 @@ const initialState = {
   petName: "",
   microchip: "",
   registrationNumber: "",
-  reportType: "lost",
+  reportType: "found",
   lastSeen: "",
   timeOfReport: "",
   timeOfLastSeen: "",
   details: "",
   published: "true",
+  authorId: user.value ? user.value.id : null
 }
 
 const petData = reactive({ ...initialState });

@@ -29,7 +29,8 @@ exports.create = (req, res) => {
     timeOfReport: new Date(),
     timeOfLastSeen: req.body.timeOfLastSeen,
     details: req.body.details,
-    published: req.body.published
+    published: req.body.published,
+    authorId: req.body.authorId
   });
 
   // Save Report in the database

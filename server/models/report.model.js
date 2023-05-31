@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 module.exports = mongoose => {
   const schema = mongoose.Schema(
     {
@@ -16,6 +17,10 @@ module.exports = mongoose => {
       timeOfLastSeen: {type: Date, required: false},
       details: {type: String, required: false},
       published: {type: Boolean, required: true, default: true},
+      authorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
     },
     { collection: 'reports' },
     {timestamps: true}

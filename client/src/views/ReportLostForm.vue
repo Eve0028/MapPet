@@ -3,6 +3,11 @@ import LostButton from "../components/buttons/LostButton.vue";
 import ShareButton from "../components/buttons/ShareButton.vue";
 import ReportDataService from "../services/ReportDataService";
 import { reactive, ref } from "vue";
+import { useAuthStore } from "../stores/auth.js";
+import { storeToRefs } from "pinia";
+
+const authStore = useAuthStore()
+const {user} = storeToRefs(authStore)
 
 const initialState = {
   id: "",
@@ -21,6 +26,7 @@ const initialState = {
   timeOfLastSeen: "",
   details: "",
   published: "true",
+  authorId: user.value ? user.value.id : null
 }
 
 const petData = reactive({ ...initialState });

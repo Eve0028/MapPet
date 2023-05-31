@@ -6,7 +6,6 @@ import { storeToRefs } from "pinia"
 
 import ReportButtons from '../components/ReportButtons.vue'
 
-
 const reportsDataStore = useReportsStore()
 const { getReportById } = storeToRefs(reportsDataStore)
 const { fetchReports } = reportsDataStore

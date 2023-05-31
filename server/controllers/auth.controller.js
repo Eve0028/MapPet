@@ -99,8 +99,6 @@ exports.signin = (req, res) => {
         authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
       }
 
-      // req.session.token = token;
-
       res.status(200).send({
         id: user._id,
         username: user.username,

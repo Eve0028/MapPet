@@ -32,6 +32,8 @@ onUnmounted( () => {
   emit('isWider', false)
 })
 
+// const path = "/reports"
+
 </script>
 
 <template>
@@ -40,7 +42,6 @@ onUnmounted( () => {
   <h1 class="my-reports-header">My reports</h1>
   <section class="my-reports">
     <ReportCollapsed
-        @click="$router.push(`/reports/${reportId}`)"
         v-for="reportId in reportsUserId" :id="reportId"/>
   </section>
 </template>

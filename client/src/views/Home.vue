@@ -48,7 +48,6 @@ onUnmounted( () => {
   <section class="latest-reports">
 
     <ReportCollapsed
-        @click="$router.push(`/${reportId}`)"
         v-for="reportId in reportsId" :id="reportId"/>
   </section>
 </template>
