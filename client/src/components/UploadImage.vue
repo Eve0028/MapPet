@@ -106,5 +106,12 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
+.progress{
+  margin-top: 0.4em;
+
+  .progress-bar{
+    background-color: $main-color-found;
+  }
+}
 
 </style>
