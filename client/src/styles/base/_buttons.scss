@@ -1,16 +1,29 @@
+@use '../utils/variables' as v;
+
 button {
   border-radius: 3px;
   border-width: 0;
   cursor: pointer;
 
-  padding: 0.8em 1.2em;
+  padding: 0.1em 1.2em 0 1.2em;
   font-family: inherit;
   font-style: normal;
   font-weight: 500;
   font-size: 1.1em;
-  line-height: 1em;
+  line-height: 2.2em;
   text-transform: uppercase;
   letter-spacing: 1px;
+  max-width: 20em;
 
   transition-duration: 0.1s;
+}
+
+.btn-submit{
+  color: v.$main-color-font;
+  background-color: #dddddd;
+}
+
+.btn-submit:hover{
+  color: #ffffff;
+  background-color: v.$primary-color;
 }

@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     env_file: ./.env
     ports:
-      - $CLIENT_DOCKER_PORT:$CLIENT_DOCKER_PORT
+      - $CLIENT_LOCAL_PORT:$CLIENT_DOCKER_PORT
     container_name: mevn-client
     networks:
       - mevn-stack-net
@@ -59,6 +59,7 @@ services:
       - mevn-stack-net
     volumes:
       - ./server/mongo-data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
 networks:
   mevn-stack-net:

@@ -1,12 +1,28 @@
+const mongoose = require("mongoose");
 module.exports = mongoose => {
   const schema = mongoose.Schema(
     {
-      //TODO
-      // Add all attributes
-      title: String,
-      description: String,
-      published: Boolean
+      publisherName: {type: String, required: true},
+      ownerName: {type: String, required: false},
+      phoneNumber: {type: String, required: false},
+      emailAddress: {type: String, required: true},
+      imageUrl: {type: String, required: false},
+      petType: {type: String, required: true},
+      petName: {type: String, required: false},
+      microchip: {type: String, required: false},
+      registrationNumber: {type: String, required: false},
+      reportType: {type: String, required: true},
+      lastSeen: {type: String, required: false},
+      timeOfReport: {type: Date, required: true},
+      timeOfLastSeen: {type: Date, required: false},
+      details: {type: String, required: false},
+      published: {type: Boolean, required: true, default: true},
+      authorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
     },
+    { collection: 'reports' },
     {timestamps: true}
   );
 
@@ -16,6 +32,5 @@ module.exports = mongoose => {
     return object;
   });
 
-  const Report = mongoose.model("report", schema);
-  return Report;
+  return mongoose.model("Report", schema);
 };

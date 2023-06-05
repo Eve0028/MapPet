@@ -1,50 +1,46 @@
 <script setup>
-import { ref, computed } from "vue";
+import { computed, onMounted, onUnmounted } from "vue"
+import { useReportsStore } from '../stores/reportsSt'
 
-import LostButton from '../components/buttons/LostButton.vue'
-import FindButton from '../components/buttons/FindButton.vue'
-import ReportCollapsed from '../components/report/ReportCollapsed.vue'
+import ReportButtons from '../components/ReportButtons.vue'
+import ReportCollapsed from '../components/ReportCollapsed.vue'
+import { storeToRefs } from "pinia";
 
-const reports = ref([
-  {
-    imageUrl: "imageUrl",
-    petType: "petType",
-    petName: "petName",
-    reportType: "lost",
-    lastSeen: "lastSeen",
-    timeOfReport: "timeOfReport",
-    timeOfLastSeen: "timeOfLastSeen",
-    details: "details"
-  },
-  {
-    imageUrl: "imageUrl",
-    petType: "petType",
-    petName: "petName",
-    reportType: "found",
-    lastSeen: "lastSeen",
-    timeOfReport: "timeOfReport",
-    timeOfLastSeen: "timeOfLastSeen",
-    details: "details"
-  }
-])
+const reportsDataStore = useReportsStore()
+const { reports } = storeToRefs(reportsDataStore)
+const { fetchReports } = reportsDataStore
+
+const emit = defineEmits(['isWider'])
+
+// Get posts id's
+const reportsId = computed(() => {
+  return reports.value.map((r) => r.id)
+})
+
+onMounted(() => {
+  emit('isWider', true)
+  fetchReports()
+})
+
+onUnmounted( () => {
+  emit('isWider', false)
+})
 
 </script>
 
 <template>
-  <section class="home-buttons">
-    <LostButton class="home-button"/>
-    <FindButton class="home-button"/>
-  </section>
+  <ReportButtons/>
 
   <h1 class="latest-reports-header">The latest reports</h1>
   <section class="latest-reports">
-    <ReportCollapsed v-for="report in reports" v-bind="report"/>
+    <ReportCollapsed
+        v-for="reportId in reportsId" :id="reportId"/>
   </section>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .latest-reports {
-  --auto-grid-min-size: 16rem;
+  --auto-grid-min-size: 17rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
   grid-gap: 2.5em;
@@ -54,16 +50,4 @@ h1.latest-reports-header {
   margin-top: 1.2em;
   margin-bottom: 1em;
 }
-
-.home-buttons{
-  display: flex;
-  column-gap: 2.2em;
-  row-gap: 0.5em;
-  flex-wrap: wrap;
-}
-
-.home-button{
-  flex-grow: 1;
-}
-
 </style>

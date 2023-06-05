@@ -15,7 +15,7 @@
 
 <style lang="scss" scoped>
 h1.logo {
-  font-family: 'Jua', sans-serif;
+  font-family: $logo-font;
 }
 
 h1.logo > b {

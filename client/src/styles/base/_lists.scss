@@ -12,9 +12,9 @@ li {
   display: flex;
 }
 
-li:hover{
-  color: v.$primary-color;
-}
+//li:hover{
+//  color: v.$primary-color;
+//}
 
 li:before {
   content: "\f105"; /* FontAwesome Unicode */
