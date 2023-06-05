@@ -1,7 +1,6 @@
 <script setup>
 import { useAuthStore } from "../stores/auth.js";
 import { storeToRefs } from "pinia";
-import ReportButtons from '../components/ReportButtons.vue'
 
 const authStore = useAuthStore()
 const {user} = storeToRefs(authStore)

@@ -1,8 +1,9 @@
 <script setup>
 import LostButton from "../components/buttons/LostButton.vue";
 import ShareButton from "../components/buttons/ShareButton.vue";
+import UploadImage from "../components/UploadImage.vue";
 import ReportDataService from "../services/ReportDataService";
-import { reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import { useAuthStore } from "../stores/auth.js";
 import { storeToRefs } from "pinia";
 
@@ -29,7 +30,8 @@ const initialState = {
   authorId: user.value ? user.value.id : null
 }
 
-const petData = reactive({ ...initialState });
+const petData = reactive({...initialState});
+const imageComponent = ref(null)
 
 function resetForm() {
   Object.assign(petData, initialState);
@@ -37,7 +39,23 @@ function resetForm() {
 
 const submitted = ref(false)
 
+const imageData = ref(undefined)
+
+onMounted(() => {
+  imageData.value = imageComponent.value.imageInfos
+})
+
+const getImageFilename = computed(() => {
+  if(imageComponent.value && imageComponent.value.imageInfos){
+    return imageComponent.value.imageInfos.filename
+  } else {
+    return ""
+  }
+})
+
 function saveReport() {
+  petData.imageUrl = getImageFilename
+
   ReportDataService.create(petData)
       .then(response => {
         petData.id = response.data.id;
@@ -73,7 +91,9 @@ function newReport() {
       </form>
       <div class="photo-upload">
         <img src=""/> upload a photo of your pet
-        <div class="photo-place"></div>
+        <div class="photo-place">
+          <UploadImage ref="imageComponent"/>
+        </div>
       </div>
     </section>
 
@@ -180,7 +200,7 @@ h3 {
   }
 }
 
-.add-report{
+.add-report {
   color: white;
   background-color: $main-color-lost;
   margin-top: 1em;

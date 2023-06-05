@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router'
 
 import ReportButtons from '../components/ReportButtons.vue'
 import { storeToRefs } from "pinia";
+import UploadFilesService from "../services/UploadFilesService.js";
 
 /// Get report data ///
 
@@ -32,12 +33,23 @@ const classReportType = computed(() => ({
 
 /// Edit data ///
 function petNameUpdate() {
-  // reports.updatePetName(1, "nn")
   updatePetName(1, "nn")
 }
 
+const previewImage = ref(undefined)
+
 onMounted(() => {
   fetchReports()
+
+  UploadFilesService.getImage(reportData.value.imageUrl).then(
+      (response) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(response.data);
+        reader.onload = () => {
+          previewImage.value = reader.result;
+        }
+      }
+  )
 })
 
 </script>
@@ -61,7 +73,7 @@ onMounted(() => {
       </div>
     </header>
     <section class="pet-info">
-      <img :src="reportData.imageUrl" :alt="imgAlt"/>
+      <img class="image-view" v-if="previewImage" :src="previewImage" :alt="imgAlt"/>
       <div class="pet-info-details">
         <span class="pet-info-detail-row" v-for="detail of reportInfo" :key="detail.key">
           <div class="pet-info-detail-row-key">{{ detail.key }}</div>
@@ -114,10 +126,14 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  column-gap: 8em;
+  flex-direction: row;
+  column-gap: 2em;
 
-  img {
-    margin-bottom: 2em;
+  .image-view{
+    width: auto;  /* set to anything and aspect ratio is maintained - also corrects glitch in Internet Explorer */
+    height: auto;  /* set to anything and aspect ratio is maintained */
+    max-width: 22em;
+    border: 0;  /* for older IE browsers that draw borders around images */
   }
 
   .pet-info-detail-row {

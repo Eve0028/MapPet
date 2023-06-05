@@ -1,11 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const multer = require("multer");
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
+// const methodOverride = require('method-override');
+
 require("dotenv").config();
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8080"
+  // origin: "http://localhost:8080"
+  origin: process.env.CLIENT_BASE_URL
 };
 
 app.use(cors(corsOptions));
@@ -40,6 +46,7 @@ app.get("/", (req, res) => {
 require("./routes/report.routes")(app);
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
+require('./routes/image.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3080;

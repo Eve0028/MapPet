@@ -1,7 +1,8 @@
 <script setup>
 import ShareButton from "../components/buttons/ShareButton.vue";
 import FindButton from "../components/buttons/FindButton.vue";
-import { reactive, ref } from "vue";
+import UploadImage from "../components/UploadImage.vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import ReportDataService from "../services/ReportDataService.js";
 import { useAuthStore } from "../stores/auth.js";
 import { storeToRefs } from "pinia";
@@ -30,6 +31,7 @@ const initialState = {
 }
 
 const petData = reactive({ ...initialState });
+const imageComponent = ref(null)
 
 function resetForm() {
   Object.assign(petData, initialState);
@@ -37,7 +39,22 @@ function resetForm() {
 
 const submitted = ref(false)
 
+const imageData = ref(undefined)
+onMounted(() => {
+  imageData.value = imageComponent.value.imageInfos
+})
+
+const getImageFilename = computed(() => {
+  if(imageComponent.value && imageComponent.value.imageInfos){
+    return imageComponent.value.imageInfos.filename
+  } else {
+    return ""
+  }
+})
+
 function saveReport() {
+  petData.imageUrl = getImageFilename
+
   ReportDataService.create(petData)
       .then(response => {
         petData.id = response.data.id;
@@ -72,8 +89,10 @@ function newReport() {
                v-model.trim="petData.emailAddress">
       </form>
       <div class="photo-upload">
-        <img src=""/> upload a photo of found pet
-        <div class="photo-place"></div>
+        <img src=""/> upload a photo of your pet
+        <div class="photo-place">
+          <UploadImage ref="imageComponent"/>
+        </div>
       </div>
     </section>
 

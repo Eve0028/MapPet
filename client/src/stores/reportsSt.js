@@ -18,22 +18,10 @@ export const useReportsStore = defineStore('reports', {
       ReportDataService.getAll()
         .then(response => {
           this.reports = response.data;
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);
         });
     },
   },
-
-  // async function fetchReports() {
-  //   ReportDataService.getAll()
-  //     .then(response => {
-  //       this.reports = response.data;
-  //       console.log(response.data);
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //     });
-  // }
 })

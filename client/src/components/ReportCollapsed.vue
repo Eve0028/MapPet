@@ -1,11 +1,11 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-// import { useReportsStore } from '../stores/reports'
 import { useReportsStore } from '../stores/reportsSt'
 import { useAuthStore } from "../stores/auth.js";
 import { storeToRefs } from "pinia"
 import UserService from "../services/user.service";
 import ReportDataService from "../services/ReportDataService";
+import UploadFilesService from "../services/UploadFilesService";
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -18,10 +18,9 @@ const props = defineProps({
 })
 
 const path = computed(() => {
-  if(canModify){
+  if (canModify) {
     return "/reports/" + props.id
-  }
-  else{
+  } else {
     return "/" + props.id
   }
 })
@@ -56,21 +55,36 @@ function deleteReport() {
       });
 }
 
+const previewImage = ref(undefined)
+
 onMounted(() => {
   fetchReports()
 
-  UserService.getAdminBoard().then(
-      (response) => {
-        canModify.value = true
-      },
-      (error) => {
-        UserService.getUserBoard().then(
-            (response) => {
-              if (reportData.value.authorId === user.value.id) {
-                canModify.value = true
-              }
+  if (user.value) {
+    if (user.value.roles.includes('ROLE_ADMIN')) {
+      UserService.getAdminBoard().then(
+          (response) => {
+            canModify.value = true
+          }
+      )
+    } else if (user.value.roles.includes('ROLE_USER')) {
+      UserService.getUserBoard().then(
+          (response) => {
+            if (reportData.value.authorId === user.value.id) {
+              canModify.value = true
             }
-        )
+          }
+      )
+    }
+  }
+
+  UploadFilesService.getImage(reportData.value.imageUrl).then(
+      (response) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(response.data);
+        reader.onload = () => {
+          previewImage.value = reader.result;
+        }
       }
   )
 })
@@ -82,7 +96,7 @@ const active = ref(true)
 <template>
   <section class="report-template" :class="active ? 'active' : 'non-active'">
     <section class="report report-collapsed" @click="$router.push(`${path}`)">
-      <img width="120px" height="60px" :src="reportData.imageUrl" :alt="imgAlt"/>
+      <img class="image-view" v-if="previewImage" :src="previewImage" :alt="imgAlt"/>
       <section class="pet-info">
         <div class="pet-header">
           <h3 class="pet-name">{{ reportData.petType + ' - ' + reportData.petName }}</h3>
@@ -99,7 +113,6 @@ const active = ref(true)
         </div>
       </section>
     </section>
-    <!--    {{ canModify }}-->
     <div v-if="canModify" class="edit-options">
       <button @click="deleteReport" class="button delete">Delete report</button>
     </div>
@@ -113,6 +126,13 @@ const active = ref(true)
 
 .report-collapsed {
   cursor: pointer;
+
+  .image-view{
+    width: auto;  /* set to anything and aspect ratio is maintained - also corrects glitch in Internet Explorer */
+    height: auto;  /* set to anything and aspect ratio is maintained */
+    max-width: 100%;
+    border: 0;  /* for older IE browsers that draw borders around images */
+  }
 }
 
 .pet-info-detail-row {

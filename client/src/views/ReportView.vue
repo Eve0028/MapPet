@@ -1,10 +1,11 @@
 <script setup>
 import { useReportsStore } from '../stores/reportsSt'
-import { computed, onMounted, ref } from "vue"
+import { computed, nextTick, onMounted, ref } from "vue"
 import { useRoute } from 'vue-router'
 import { storeToRefs } from "pinia"
 
 import ReportButtons from '../components/ReportButtons.vue'
+import UploadFilesService from "../services/UploadFilesService.js";
 
 const reportsDataStore = useReportsStore()
 const { getReportById } = storeToRefs(reportsDataStore)
@@ -12,10 +13,6 @@ const { fetchReports } = reportsDataStore
 
 const route = useRoute()
 const reportData = computed(() => getReportById.value(route.params.id))
-
-// const reportData = computed(() => {
-//   return reportsData.reportsData.filter((n) => n.id == route.params.id).at(0)
-// })
 
 const imgAlt = computed(() => {
   return reportData.value.reportType + ' ' + reportData.value.petType + ' ' + reportData.value.petName
@@ -32,8 +29,20 @@ const classReportType = computed(() => ({
   'lost': reportData.value.reportType === 'lost'
 }))
 
+const previewImage = ref(undefined)
+
 onMounted(() => {
   fetchReports()
+
+  UploadFilesService.getImage(reportData.value.imageUrl).then(
+      (response) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(response.data);
+        reader.onload = () => {
+          previewImage.value = reader.result;
+        }
+      }
+  )
 })
 
 </script>
@@ -50,7 +59,8 @@ onMounted(() => {
       </div>
     </header>
     <section class="pet-info">
-      <img :src="reportData.imageUrl" :alt="imgAlt"/>
+      {{previewImage}}
+      <img class="image-view" v-if="previewImage" :src="previewImage" :alt="imgAlt"/>
       <div class="pet-info-details">
         <span class="pet-info-detail-row" v-for="detail of reportInfo" :key="detail.key">
           <div class="pet-info-detail-row-key">{{ detail.key }}</div>
@@ -101,6 +111,13 @@ onMounted(() => {
 
   img {
     margin-bottom: 2em;
+  }
+
+  .image-view{
+    width: auto;  /* set to anything and aspect ratio is maintained - also corrects glitch in Internet Explorer */
+    height: auto;  /* set to anything and aspect ratio is maintained */
+    max-width: 100%;
+    border: 0;  /* for older IE browsers that draw borders around images */
   }
 
   .pet-info-detail-row {

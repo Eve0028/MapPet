@@ -32,21 +32,7 @@ onUnmounted( () => {
   <ReportButtons/>
 
   <h1 class="latest-reports-header">The latest reports</h1>
-
-<!--  <div class="input-group mb-3">-->
-<!--    <input type="text" class="form-control" placeholder="Search by location"-->
-<!--           v-model="title"/>-->
-<!--    <div class="input-group-append">-->
-<!--      <button class="btn btn-outline-secondary" type="button"-->
-<!--              @click="searchTitle"-->
-<!--      >-->
-<!--        Search-->
-<!--      </button>-->
-<!--    </div>-->
-<!--  </div>-->
-
   <section class="latest-reports">
-
     <ReportCollapsed
         v-for="reportId in reportsId" :id="reportId"/>
   </section>
@@ -54,7 +40,7 @@ onUnmounted( () => {
 
 <style lang="scss">
 .latest-reports {
-  --auto-grid-min-size: 16.5rem;
+  --auto-grid-min-size: 17rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
   grid-gap: 2.5em;
