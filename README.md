@@ -21,13 +21,14 @@ A web application that lets you post a report of an animal that has gone missing
 
 ## Features
 #### To do
+- Possibility to share the report on social media
+- After responding to the report, users may engage in text chat
+- Possibility to generate a poster about pet loss
+#### Done
 - Displaying the board with reports
 - Possibility to create a lost-an-animal report
 - Possibility to create a find-an-animal report
-- Possibility to share the report on social media
 - Displaying the Mappet with the reported animals locations
-- After responding to the report, users may engage in text chat
-- Possibility to generate a poster about pet loss
 <br>
 
 ## The project status
